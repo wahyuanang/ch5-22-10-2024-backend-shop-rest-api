@@ -1,0 +1,22 @@
+summary selasa, 22 Oktober 2024 =
+- associate dan references
+1. Merubah design database diagram agar sesuai kebutuhan
+2. Refactor agar modular untuk routes dan controller dengan index.js dan server.js /api/v1
+3. For API responses, it's generally best to stick with standard and widely accepted terms. Here’s the recommended convention:
+Status: "Failed" (instead of "Fail") – "Failed" is the past participle, which is typically used to indicate an unsuccessful operation in a more formal and professional manner.
+Status: "Success" (instead of "Succedd") – "Success" is a standard and widely accepted term to indicate a successful operation.
+So, the correct statuses for our API responses would be:
+"Failed" for failure responses.
+"Success" for successful responses.
+https://blog.postman.com/best-practices-for-api-error-handling/
+4. refactor health-check dan 404 not found handler to system controller = sesuai nama nya utk controller yang berperan di system level,
+kaya health-check, 404 not found handler dan global error handler.
+5. set variable di postman
+6. handle sequelize database error =     
+} else if (error.name === "SequelizeDatabaseError") {
+7.jelasin better error handler utk 500 (internal server error)terjadi karena diluar nalar. 
+- fokus di final struktur kode backend = DONE
+8. include di sequelize => done
+9. attributes di sequelize query dan penjelasannya => DONE
+- Improved Query Performance
+10. final config untuk server js kita = DONE

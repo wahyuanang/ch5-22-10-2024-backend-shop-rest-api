@@ -1,4 +1,5 @@
 const { Shops, Products, Users } = require("../models");
+const { Op } = require("sequelize");
 
 const createShop = async (req, res) => {
   const { name, adminEmail, userId } = req.body;
@@ -48,6 +49,8 @@ const createShop = async (req, res) => {
 
 const getAllShop = async (req, res) => {
   try {
+    const { shopName, adminEmail } = req.query;
+
     const shops = await Shops.findAll({
       include: [
         {
@@ -62,6 +65,11 @@ const getAllShop = async (req, res) => {
         },
       ],
       attributes: ["name", "adminEmail"],
+      where: {
+        name: {
+          [Op.like]: `%${shopName}%`,
+        },
+      },
     });
 
     res.status(200).json({
