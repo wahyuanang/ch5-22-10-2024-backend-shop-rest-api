@@ -20,3 +20,13 @@ kaya health-check, 404 not found handler dan global error handler.
 9. attributes di sequelize query dan penjelasannya => DONE
 - Improved Query Performance
 10. final config untuk server js kita = DONE
+
+
+summary hari ini 24 Oktober 2024 :
+- request query pada node js express application
+- menggunakan request query dengan sequelize where condition
+- raw query dan sequelize (dengan request query)
+- implementasi LIKE dan iLIKE (insesitive case) serta subString(% %) agar mendapat data yang lebih flexibel sesuai request query ya
+- membuat dynamic where query dengan conditional object {} sehingga tidak mematikan API jika tidak ada request query nya
+- membuat dynamic where query pada include model (relasi table nya) 
+- membahas gambaran pagination dan limit

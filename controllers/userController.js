@@ -1,12 +1,53 @@
 const { Users } = require("../models");
+const { Op, where } = require("sequelize");
 
 const findUsers = async (req, res, next) => {
   try {
-    const users = await Users.findAll();
+    const {
+      name,
+      age,
+      role,
+      address,
+      shopId,
+      page = 1,
+      limit = 10,
+    } = req.query;
+    const condition = {};
+
+    if (name) {
+      condition.name = { [Op.iLike]: `%${name}%` };
+    }
+    if (age) {
+      condition.age = age;
+    }
+    if (role) {
+      condition.role = role;
+    }
+    if (address) {
+      condition.address = { [Op.iLike]: `%${address}%` };
+    }
+    if (shopId) {
+      condition.shopId = shopId;
+    }
+
+    const offset = (page - 1) * limit;
+
+    const users = await Users.findAndCountAll({
+      where: condition,
+      limit: limit,
+      offset: offset,
+    });
+
+    const totalData = users.count;
+
+    const totalPages = Math.ceil(totalData / limit);
 
     res.status(200).json({
       status: "Success",
       data: {
+        totalData,
+        totalPages,
+        currentPage: page,
         users,
       },
     });
