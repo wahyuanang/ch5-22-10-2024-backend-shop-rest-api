@@ -2,13 +2,13 @@ const { Shops, Products, Users } = require("../models");
 const { Op, where } = require("sequelize");
 
 const createShop = async (req, res) => {
-  const { name, adminEmail, userId } = req.body;
+  const { name, adminEmail } = req.body;
 
   try {
     const newShop = await Shops.create({
       name,
       adminEmail,
-      userId,
+      userId: req.user.id,
     });
 
     res.status(201).json({
@@ -50,14 +50,7 @@ const createShop = async (req, res) => {
 const getAllShop = async (req, res) => {
   try {
     // 1. Kita jaga req.query biar gak kemana-mana
-    const {
-      shopName,
-      adminEmail,
-      productName,
-      stock,
-      page = 1,
-      limit = 10,
-    } = req.query;
+    const { shopName, productName, stock, page = 1, limit = 10 } = req.query;
     const condition = {};
 
     if (shopName) {
@@ -76,7 +69,6 @@ const getAllShop = async (req, res) => {
     if (stock) {
       productCondition.stock = stock;
     }
-
 
     const offset = (page - 1) * limit;
 
@@ -111,7 +103,7 @@ const getAllShop = async (req, res) => {
       data: {
         totalData,
         totalPages,
-        currentPage: page,
+        totalpage: page,
         shops: shops.rows,
       },
     });

@@ -1,0 +1,253 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Shop API",
+    "description": "API for retrieving shop information with pagination",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Local server"
+    }
+  ],
+  "paths": {
+    "/shops": {
+      "get": {
+        "summary": "Get a list of shops",
+        "description": "Retrieve a paginated list of shops and their products.",
+        "parameters": [
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "example": 3
+            },
+            "description": "Limit the number of shops returned per page."
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Success"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Success get shops data"
+                    },
+                    "isSuccess": {
+                      "type": "boolean",
+                      "example": true
+                    },
+                    "pagination": {
+                      "type": "object",
+                      "properties": {
+                        "totalRow": {
+                          "type": "integer",
+                          "example": 100
+                        },
+                        "totalPage": {
+                          "type": "integer",
+                          "example": 34
+                        },
+                        "current": {
+                          "type": "object",
+                          "properties": {
+                            "page": {
+                              "type": "integer",
+                              "example": 1
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "example": 3
+                            }
+                          }
+                        },
+                        "next": {
+                          "type": "object",
+                          "properties": {
+                            "page": {
+                              "type": "integer",
+                              "example": 2
+                            },
+                            "limit": {
+                              "type": "integer",
+                              "example": 3
+                            }
+                          }
+                        }
+                      }
+                    },
+                    "data": {
+                      "type": "object",
+                      "properties": {
+                        "shops": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string",
+                                "example": "Nader, Moen and Zulauf"
+                              },
+                              "adminEmail": {
+                                "type": "string",
+                                "nullable": true,
+                                "example": null
+                              },
+                              "products": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "name": {
+                                      "type": "string",
+                                      "example": "Electronic Wooden Mouse"
+                                    },
+                                    "images": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "string",
+                                        "example": "https://ik.imagekit.io/imamth/Profile-17-1729202156932_ieaMdNeZB.png?updatedAt=1729202158471"
+                                      }
+                                    },
+                                    "stock": {
+                                      "type": "integer",
+                                      "example": 24
+                                    },
+                                    "price": {
+                                      "type": "integer",
+                                      "example": 14972
+                                    }
+                                  }
+                                }
+                              },
+                              "user": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string",
+                                    "example": "Dr. Willie Watsica MD"
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "example": {
+                    "status": "Success",
+                    "message": "Success get shops data",
+                    "isSuccess": true,
+                    "pagination": {
+                      "totalRow": 100,
+                      "totalPage": 34,
+                      "current": {
+                        "page": 1,
+                        "limit": 3
+                      },
+                      "next": {
+                        "page": 2,
+                        "limit": 3
+                      }
+                    },
+                    "data": {
+                      "shops": [
+                        {
+                          "name": "Nader, Moen and Zulauf",
+                          "adminEmail": null,
+                          "products": [
+                            {
+                              "name": "Electronic Wooden Mouse",
+                              "images": [
+                                "https://ik.imagekit.io/imamth/Profile-17-1729202156932_ieaMdNeZB.png?updatedAt=1729202158471"
+                              ],
+                              "stock": 24,
+                              "price": 14972
+                            }
+                          ],
+                          "user": {
+                            "name": "Dr. Willie Watsica MD"
+                          }
+                        }
+                      ]
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Resource not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Shops not found"
+                    },
+                    "isSuccess": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  },
+                  "example": {
+                    "status": "Error",
+                    "message": "Shops not found",
+                    "isSuccess": false
+                  }
+                }
+              }
+            }
+          },
+          "500": {
+            "description": "Internal server error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string",
+                      "example": "Error"
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Internal server error"
+                    },
+                    "isSuccess": {
+                      "type": "boolean",
+                      "example": false
+                    }
+                  },
+                  "example": {
+                    "status": "Error",
+                    "message": "Internal server error",
+                    "isSuccess": false
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

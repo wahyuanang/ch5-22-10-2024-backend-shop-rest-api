@@ -60,8 +60,6 @@ const getAllProduct = async (req, res) => {
       limit = 10,
     } = req.query;
 
-    console.log(limit);
-
     const condition = {};
     if (productName) condition.name = { [Op.like]: `%${productName}%` };
     if (stock) condition.stock = stock;

@@ -1,12 +1,14 @@
-'use strict';
+"use strict";
 
-const { faker } = require('@faker-js/faker');
-const bcrypt = require('bcrypt');
+const { faker } = require("@faker-js/faker");
+const bcrypt = require("bcrypt");
 
 module.exports = {
   async up(queryInterface, Sequelize) {
     const auths = [];
-    const users = await queryInterface.sequelize.query(`SELECT id FROM "Users";`);
+    const users = await queryInterface.sequelize.query(
+      `SELECT id FROM "Users";`
+    );
     const userIds = users[0];
 
     for (let i = 0; i < 100; i++) {
@@ -22,10 +24,10 @@ module.exports = {
         updatedAt: new Date(),
       });
     }
-    await queryInterface.bulkInsert('Auths', auths, {});
+    await queryInterface.bulkInsert("Auths", auths, {});
   },
 
   async down(queryInterface, Sequelize) {
-    await queryInterface.bulkDelete('Auths', null, {});
-  }
+    await queryInterface.bulkDelete("Auths", null, {});
+  },
 };
