@@ -60,7 +60,7 @@ const login = async (req, res, next) => {
         data: {
           username: user.user.name,
           token,
-        }
+        },
       });
     } else {
       res.status(401).json({
